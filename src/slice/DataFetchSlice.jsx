@@ -26,23 +26,24 @@ const initialState = {
   dateOfBirth: "",
   password: "",
   confirmPassword: "",
-  status:""
+  status:"",
+  item:[]
 };
-
 
 const dataSlice = createSlice({
   name: "data",
   initialState,
   reducers: {},
-  extraReducers:(builder)=>{
-    builder.addCase(fetchData.pending,(state,action)=>{
-        state.status ="Pending"
-    }).addCase(fetchData.fulfilled,(state,action)=>{
-        state.status = "Success"
-    }).addCase(fetchData.rejected,(state,action)=>{
-        state.status = "Rejected"
-    })
-  },
-});
+//   extraReducers:(builder)=>{
+//     builder.addCase(fetchData.pending,(state,action)=>{
+//         state.status ="Pending"
+//     }).addCase(fetchData.fulfilled,(state,action)=>{
+//         state.status = "Success"
+//         state.item =action.payload
+//     }).addCase(fetchData.rejected,(state,action)=>{
+//         state.status = "Rejected"
+//     })
+//   },
+}); 
 
 export default dataSlice.reducer
