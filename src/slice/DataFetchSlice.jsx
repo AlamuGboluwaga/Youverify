@@ -6,19 +6,19 @@ const api = import.meta.env.VITE_API;
 
 
 export const fetchData=createAsyncThunk(
-    "data/fetchData",async({user,rejectWithValue})=>{
+    "data/fetchData",async({rejectWithValue})=>{
 try {
     const response = axios.get(`${api}`);
     return response?.data
 } catch (error) {
     console.log(error.message);
-    
+    rejectWithValue(error.message)
 }
     }
 )
 
 const initialState = {
-  firstName: "",
+  firstName: api,
   middleName: "",
   lastName: "",
   email: "",
@@ -34,16 +34,16 @@ const dataSlice = createSlice({
   name: "data",
   initialState,
   reducers: {},
-//   extraReducers:(builder)=>{
-//     builder.addCase(fetchData.pending,(state,action)=>{
-//         state.status ="Pending"
-//     }).addCase(fetchData.fulfilled,(state,action)=>{
-//         state.status = "Success"
-//         state.item =action.payload
-//     }).addCase(fetchData.rejected,(state,action)=>{
-//         state.status = "Rejected"
-//     })
-//   },
+  extraReducers:(builder)=>{
+    builder.addCase(fetchData.pending,(state,action)=>{
+        state.status ="Pending"
+    }).addCase(fetchData.fulfilled,(state,action)=>{
+        state.status = "Success"
+        state.item =action.payload
+    }).addCase(fetchData.rejected,(state,action)=>{
+        state.status = "Rejected"
+    })
+  },
 }); 
 
 export default dataSlice.reducer
