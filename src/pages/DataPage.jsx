@@ -18,8 +18,6 @@ const DataPage = () => {
      useEffect(() => {
        fetchData();
      },[]);
-
-     console.log( "Data",data);
   return (
     <div className='className="bg-green-30 h-screen w-screen p-4 flex flex-col gap-10'>
       <h1 className="text-center">Data Page</h1>

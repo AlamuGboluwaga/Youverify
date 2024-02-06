@@ -3,12 +3,14 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 import { configureStore } from "@reduxjs/toolkit";
-import newCustomerReducer from './slice/Slice.jsx'
+import newCustomerReducer from './slice/NewCustomerSlice.jsx'
+import DataFetchReducer from './slice/DataFetchSlice.jsx';
 import { Provider } from "react-redux";
 
 const store =configureStore({
   reducer:{
-    customer:newCustomerReducer
+    customer:newCustomerReducer,
+    DataFetch: DataFetchReducer
   }
 })
 

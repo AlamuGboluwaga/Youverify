@@ -3,7 +3,7 @@ import axios from "axios";
 
 const api = import.meta.env.VITE_API;
 
-const registerUser = createAsyncThunk(async(user,{rejectWithValue})=>{
+export const createCustomer = createAsyncThunk("newCustomer/creatCustomer",async(user,{rejectWithValue})=>{
     try {
      const response =  await axios.post(`${api}`,user) 
      console.log(response.data);
@@ -26,7 +26,7 @@ const initialState = {
 };
 
 const newCustomerSlice=createSlice({
-    name:"newcustomer",
+    name:"newCustomer",
     initialState,
     reducers:{
    postData: (state)=>{}
