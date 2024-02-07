@@ -6,26 +6,20 @@ const api = import.meta.env.VITE_API;
 
 export const fetchData = createAsyncThunk(
   "data/fetchData",
-  async (user,{ rejectWithValue }) => {
+  async (k,{ rejectWithValue }) => {
     try {
       const response = await axios.get(`${api}`);
-      //   console.log("RESPONSE",response.data);
-      return response?.data;
+      return response?.data ;
     } catch (error) {
-      console.error(error.response.data);
-      return rejectWithValue(error.response.data);
+      console.error(error);
+      return rejectWithValue(error.message);
     }
   }
 );
 
 const initialState = {
-  firstName: "",
-  middleName: "",
-  lastName: "",
-  email: "",
-  mobile: "",
-  dateOfBirth: "",
-  item: [],
+  name:"userState",
+  user:[],
   status: "",
   error: "",
 };
@@ -39,17 +33,26 @@ const dataSlice = createSlice({
       return { ...state, status: "Pending" };
     });
     builder.addCase(fetchData.fulfilled, (state, action) => {
-      return {
+      const user = action.payload;
+      if(user.length ===0){
+        return { ...state, staus: "Data is Empty", status: "Success but no Data" };
+      }
+      return{
         ...state,
-        status: "Success",
-        firstName:action
-      };
+        status:"Success",
+        user:action.payload
+       
+      }
+
+        
+      ;
     });
     builder.addCase(fetchData.rejected, (state, action) => {
-      return { ...state, status: "Rejeted", error: action.payload };
+      return { ...state, status: "Rejected", error: action.payload };
     });
   },
 });
-export const { userLoaded, logoutUser } = dataSlice.actions;
+
+// Exporting fetchData thunk directly if needed elsewh
 
 export default dataSlice.reducer;

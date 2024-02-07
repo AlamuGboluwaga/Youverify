@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
@@ -10,9 +10,14 @@ import { Provider, useDispatch } from "react-redux";
 const store =configureStore({
   reducer:{
     customer:newCustomerReducer,
-    DataFetch: DataFetchReducer
+    dataFetch: DataFetchReducer
   }
 })
+// const dispatch = useDispatch()
+
+// useEffect(()=>{
+//   dispatch(fetchData())
+// },[dispatch])
 
  store.dispatch(fetchData())
 

@@ -1,13 +1,22 @@
-import React from 'react'
-let items = [''];
-
-// console.log(items.indexOf('tosin')+1);
-// console.log("LENGTH",items.length -1);
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchData } from '../slice/DataFetchSlice'
 
 const Home = () => {
-  return (
+  const dispatch = useDispatch()
+  const user= useSelector(state=>state.dataFetch)
+
+  useEffect(()=>{
+    dispatch(fetchData())
+  },[])
+console.log(user);
+return (
     <div className='h-[100vh] bg-yellow-300'>
-      Home
+      {user.map(item=>(
+        <>
+        {item.firstName}
+        </>
+      ))}
     </div>
   )
 }
