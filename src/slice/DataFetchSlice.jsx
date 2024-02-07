@@ -1,49 +1,55 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-import React from 'react'
+import React from "react";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const api = import.meta.env.VITE_API;
 
-
-export const fetchData=createAsyncThunk(
-    "data/fetchData",async({rejectWithValue})=>{
-try {
-    const response = axios.get(`${api}`);
-    return response?.data
-} catch (error) {
-    console.log(error.message);
-    rejectWithValue(error.message)
-}
+export const fetchData = createAsyncThunk(
+  "data/fetchData",
+  async (user,{ rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${api}`);
+      //   console.log("RESPONSE",response.data);
+      return response?.data;
+    } catch (error) {
+      console.error(error.response.data);
+      return rejectWithValue(error.response.data);
     }
-)
+  }
+);
 
 const initialState = {
-  firstName: api,
+  firstName: "",
   middleName: "",
   lastName: "",
   email: "",
   mobile: "",
   dateOfBirth: "",
-  password: "",
-  confirmPassword: "",
-  status:"",
-  item:[]
+  item: [],
+  status: "",
+  error: "",
 };
 
 const dataSlice = createSlice({
   name: "data",
   initialState,
   reducers: {},
-  extraReducers:(builder)=>{
-    builder.addCase(fetchData.pending,(state,action)=>{
-        state.status ="Pending"
-    }).addCase(fetchData.fulfilled,(state,action)=>{
-        state.status = "Success"
-        state.item =action.payload
-    }).addCase(fetchData.rejected,(state,action)=>{
-        state.status = "Rejected"
-    })
+  extraReducers: (builder) => {
+    builder.addCase(fetchData.pending, (state, action) => {
+      return { ...state, status: "Pending" };
+    });
+    builder.addCase(fetchData.fulfilled, (state, action) => {
+      return {
+        ...state,
+        status: "Success",
+        firstName:action
+      };
+    });
+    builder.addCase(fetchData.rejected, (state, action) => {
+      return { ...state, status: "Rejeted", error: action.payload };
+    });
   },
-}); 
+});
+export const { userLoaded, logoutUser } = dataSlice.actions;
 
-export default dataSlice.reducer
+export default dataSlice.reducer;

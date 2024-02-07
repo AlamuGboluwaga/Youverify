@@ -2,7 +2,7 @@ import React, { useState ,useEffect} from 'react'
 import axios from 'axios';
 
 const api = import.meta.env.VITE_API;
-// const url = import.meta.env.VITE_URL; 
+
 const DataPage = () => {
 
      const [data, setdata] = useState([])
@@ -12,7 +12,7 @@ const DataPage = () => {
          const response = await axios.get(`${api}`);
          setdata(response?.data);
        } catch (error) {
-        //  console.error(error.message);
+         console.error(error.message);
        }
      };
      useEffect(() => {
@@ -25,7 +25,7 @@ const DataPage = () => {
         <p className="text-center">Data is Empty</p>
       ) : (
         <>
-          {data.map((item, index) => (
+          {data?.map((item, index) => (
             <div key={index} className="flex flex-col ">
               <p> Id : {item.id}</p>
               <label>
@@ -74,7 +74,7 @@ const DataPage = () => {
                 />
               </label>
               <label>
-                Date of Birth : 
+                Date of Birth :
                 <input
                   type="text"
                   value={item.dateOfBirth}
