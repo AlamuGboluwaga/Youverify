@@ -1,27 +1,38 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { build } from "vite"
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
+const api = import.meta.env.VITE_API;
 
-const initialState={
-user:[],
-status:"",
-isLoading:false,
-error:false
-}
-
-export const fetchCustomers= createAsyncThunk()
-
-
-
-const customerSlice = createSlice({
-  initialState,
-  reducers:{},
-  extraReducers:()=>{
-    builder.addCase(
-
-    )
+export const createCustomer = createAsyncThunk(
+  "newCustomer/creatCustomer",
+  async (user, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(`${api}`, user);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error.message);
+      rejectWithValue(error);
+    }
   }
-})
+);
 
+const initialState = {
+  firstName: "",
+  middleName: "",
+  lastName: "",
+  email: "",
+  mobile: "",
+  dateOfBirth: "",
+  password: "",
+  confirmPassword: "",
+};
 
-export default customerSlice.reducer
+const newCustomerSlice = createSlice({
+  name: "newCustomer",
+  initialState,
+  reducers: {
+    postData: (state) => {},
+  },
+});
+export const { postData } = newCustomerSlice.actions;
+export default newCustomerSlice.reducer;
