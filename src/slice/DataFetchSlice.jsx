@@ -3,12 +3,14 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const api = import.meta.env.VITE_API;
-
+const url = import.meta.env.VITE_URL;
 export const fetchData = createAsyncThunk(
   "data/fetchData",
   async (k,{ rejectWithValue }) => {
     try {
-      const response = await axios.get(`${api}`);
+      const response = await axios.get(
+        `${api}`
+      );
       return response?.data ;
     } catch (error) {
       console.error(error);
