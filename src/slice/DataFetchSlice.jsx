@@ -22,6 +22,7 @@ export const fetchData = createAsyncThunk(
 const initialState = {
   name:"userState",
   user:[],
+  isLoading:false,
   status: "",
   error: "",
 };
@@ -33,8 +34,7 @@ const dataSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchData.pending, (state, action) => {
       return { ...state, status: "Pending" };
-    });
-    builder.addCase(fetchData.fulfilled, (state, action) => {
+    }).addCase(fetchData.fulfilled, (state, action) => {
       const user = action.payload;
       if(user.length ===0){
         return { ...state, staus: "Data is Empty", status: "Success but no Data" };
@@ -45,16 +45,11 @@ const dataSlice = createSlice({
         user:action.payload
        
       }
-
-        
-      ;
-    });
-    builder.addCase(fetchData.rejected, (state, action) => {
+    }).addCase(fetchData.rejected, (state, action) => {
       return { ...state, status: "Rejected", error: action.payload };
     });
   },
 });
 
-// Exporting fetchData thunk directly if needed elsewh
 
 export default dataSlice.reducer;

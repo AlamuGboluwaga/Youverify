@@ -9,17 +9,11 @@ import { Provider, useDispatch } from "react-redux";
 
 const store =configureStore({
   reducer:{
-    customer:newCustomerReducer,
-    dataFetch: DataFetchReducer
+    customerState:newCustomerReducer,
+    dataState: DataFetchReducer
   }
 })
-// const dispatch = useDispatch()
 
-// useEffect(()=>{
-//   dispatch(fetchData())
-// },[dispatch])
-
- store.dispatch(fetchData())
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

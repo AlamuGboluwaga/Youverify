@@ -1,19 +1,31 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchData } from '../slice/DataFetchSlice'
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+
+// export default function CircularIndeterminate() {
+//   return (
+//     <Box sx={{ display: 'flex' }}>
+//       <CircularProgress />
+//     </Box>
+//   );
+// }
 
 const Home = () => {
   const dispatch = useDispatch()
-  const users= useSelector(state=>state.dataFetch.user)
+  const users= useSelector(state=>state.dataState.user)
 
   useEffect(()=>{
     dispatch(fetchData())
   },[])
-console.log(users);
+console.log("USERS",users);
 return (
   <div className="p-4 flex flex-col justify-center items-center">
-    {users.length === 0 ? (
-      <h1 className=" text-red-500">No User Data Found</h1>
+    {users.status === "Pending"  ? (
+"yes"
+    ) : users.length === 0 ? (
+          <h1 className=" text-red-500">No user data was Found</h1>
     ) : (
       <div>
         {users.map((item, index) => (
