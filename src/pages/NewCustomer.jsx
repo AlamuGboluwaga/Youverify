@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 
 const NewCustomer = () => {
-  const userState = useSelector(state=>state.user)
-  const dispatch =useDispatch()
+  // const userState = useSelector(state=>state.user)
+  // const dispatch =useDispatch()
 const [user, setUser] = useState({
   firstName: "",
   middleName: "",

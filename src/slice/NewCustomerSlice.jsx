@@ -1,38 +1,56 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const api = import.meta.env.VITE_API;
+const api =import.meta.env.VITE_API;
+console.log(api);
 
-export const createCustomer = createAsyncThunk(
-  "newCustomer/creatCustomer",
+export const newCustomer = createAsyncThunk(
+  "newSlice/newCustomer",
   async (user, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${api}`, user);
-      console.log(response.data);
+      const response = await axios.post(api, {});
+      response.data;
     } catch (error) {
-      console.error(error.message);
-      rejectWithValue(error);
+      console.error(error);
+      rejectWithValue(error.response.data);
     }
   }
 );
 
 const initialState = {
-  firstName: "",
-  middleName: "",
-  lastName: "",
-  email: "",
-  mobile: "",
-  dateOfBirth: "",
-  password: "",
-  confirmPassword: "",
+  use: [],
+  status: "",
+  isLoading: false,
+  error: false,
 };
 
 const newCustomerSlice = createSlice({
-  name: "newCustomer",
+  name: "customer",
   initialState,
-  reducers: {
-    postData: (state) => {},
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(newCustomer.pending, (state, action) => {
+        return {
+          ...state,
+          status: "Pending",
+        };
+      })
+      .addCase(newCustomer.fulfilled, (state, action) => {
+        return {
+          ...state,
+          status: "Success",
+          user: action.payload,
+        };
+      })
+      .addCase(newCustomer.rejected, () => {
+        return {
+          ...state,
+          status: "Rejected",
+          error: action.payload,
+        };
+      });
   },
 });
-export const { postData } = newCustomerSlice.actions;
+
 export default newCustomerSlice.reducer;
