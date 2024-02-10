@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { newCustomer } from '../slice/NewCustomerSlice';
 
 const NewCustomer = () => {
-  // const userState = useSelector(state=>state.user)
-  // const dispatch =useDispatch()
+  const userState = useSelector(state=>state.user)
+  const dispatch =useDispatch()
 const [user, setUser] = useState({
   firstName: "",
   middleName: "",
@@ -14,12 +15,16 @@ const [user, setUser] = useState({
   bvn: "",
   password: "",
 });
-console.log(user);
+
+
+const handleSubmit = ()=>{
+  dispatch(newCustomer(user))
+}
 
   return (
     <div className="flex flex-col justify-center items-center h-[120vh] w-screen">
-      <form className="flex flex-col  gap-6 items-center border h-[100%] w-[100%] bg-pink-00 rounded-sm shadow-sm">
-        <h1 className="text-center mt-10 ">Login</h1>
+      <form onSubmit={handleSubmit} className="flex flex-col  gap-6 items-center border h-[100%] w-[100%] bg-pink-00 rounded-sm shadow-sm">
+        <h1 className="text-center mt-10 ">New Customer</h1>
         <input
           type="text"
           placeholder="First Name"

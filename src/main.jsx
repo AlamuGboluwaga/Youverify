@@ -5,11 +5,12 @@ import './index.css'
 import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
 import newCustomerReducer from './slice/NewCustomerSlice.jsx'
-
+import dataReducer from './slice/dataPageSilce.jsx'
 
 const store = configureStore({
 reducer:{
-newCustomerState:newCustomerReducer
+newCustomerState:newCustomerReducer,
+dataFetchState:dataReducer
 }
 })
 
