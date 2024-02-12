@@ -10,7 +10,6 @@ const DataPage = () => {
 const disptch = useDispatch();
 const userData= useSelector(state=>state.data)
 const handleSubmit =()=>{
-
 }
 
   localStorage.setItem("dataState",JSON.stringify(userData.user));

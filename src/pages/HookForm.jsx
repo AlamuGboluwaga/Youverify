@@ -3,14 +3,15 @@ import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 
 const HookForm = () => {
+  let renderCount= 0
   const form = useForm();
  const {register,control} = form 
-
-
+renderCount++;
   return (
     <div>
+     
       <form  className="flex flex-col items-center mt-10 h-screen w-screen gap-6">
-        <p>Form</p>
+        <p>Form {renderCount / 2}</p>
         <input
           type="text"
           placeholder="First Name"

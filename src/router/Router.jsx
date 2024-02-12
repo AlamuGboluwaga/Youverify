@@ -6,12 +6,17 @@ import DataPage from "../pages/DataPage";
 import Login from "../pages/Login";
 import Testpage from "../pages/Testpage";
 import HookForm from "../pages/HookForm";
+import ReactHookFormExample from "../pages/ReactHookFormExample";
+import NormalReactFormExample from "../pages/NormalReactFormExample";
+
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/hook" element={<ReactHookFormExample />} />
+        <Route path="/normal" element={<NormalReactFormExample />} />
         <Route path="/hookform" element={<HookForm />} />
         <Route path="/testpage" element={<Testpage />} />
         <Route path="/login" element={<Login />} />
