@@ -1,32 +1,51 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { DevTool } from "@hookform/devtools";
 
 const HookForm = () => {
   const form = useForm();
+ const {register,control} = form 
+
 
   return (
-    <div className="flex flex-col items-center mt-10 h-screen w-screen gap-6">
-      <p>Form</p>
-      <input
-        type="text"
-        placeholder="First Name"
-        className="border rounded-sm w-[70%] outline-none focus:border-green-300 pl-4 pt-2 pb-2 pr-2"
-      />
-      <input
-        type="text"
-        placeholder="First Name"
-        className="border rounded-sm w-[70%] outline-none focus:border-green-300 pl-4 pt-2 pb-2 pr-2"
-      />
-      <input
-        type="text"
-        placeholder="First Name"
-        className="border rounded-sm w-[70%] outline-none focus:border-green-300 pl-4 pt-2 pb-2 pr-2"
-      />
-      <input
-        type="text"
-        placeholder="First Name"
-        className="border rounded-sm w-[70%] outline-none focus:border-green-300 pl-4 pt-2 pb-2 pr-2"
-      />
+    <div>
+      <form  className="flex flex-col items-center mt-10 h-screen w-screen gap-6">
+        <p>Form</p>
+        <input
+          type="text"
+          placeholder="First Name"
+          className="border rounded-sm w-[70%] outline-none focus:border-green-300 pl-4 pt-2 pb-2 pr-2"
+          {...register("firstName")}
+        />
+        <input
+          type="text"
+          placeholder="Middle Name"
+          className="border rounded-sm w-[70%] outline-none focus:border-green-300 pl-4 pt-2 pb-2 pr-2"
+          {...register("middletName")}
+        />
+        <input
+          type="text"
+          placeholder="Email"
+          className="border rounded-sm w-[70%] outline-none focus:border-green-300 pl-4 pt-2 pb-2 pr-2"
+          {...register("email")}
+        />
+        <input
+          type="text"
+          placeholder="Mobile Number"
+          className="border rounded-sm w-[70%] outline-none focus:border-green-300 pl-4 pt-2 pb-2 pr-2"
+          {...register("mobile")}
+        />
+        <input
+          type="Password"
+          placeholder="Password"
+          className="border rounded-sm w-[70%] outline-none focus:border-green-300 pl-4 pt-2 pb-2 pr-2"
+          {...register("password")}
+        />
+        <button className="bg-green-500 border rounded-lg pr-4 pl-4 pt-2 pb-2  w-[70%] active:bg-green-400 text-white">
+          Submit
+        </button>
+      </form>
+      <DevTool control={control} />
     </div>
   );
 };
