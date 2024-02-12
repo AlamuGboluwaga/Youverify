@@ -10,7 +10,7 @@ import dataReducer from './slice/dataPageSilce.jsx'
 const store = configureStore({
 reducer:{
 newCustomerState:newCustomerReducer,
-dataFetchState:dataReducer
+data:dataReducer
 }
 })
 

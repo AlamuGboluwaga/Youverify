@@ -5,7 +5,7 @@ import axios from "axios";
 const api =import.meta.env.VITE_API
 
 export const dataFetch = createAsyncThunk(
-    "dataSlice/dataFetch",async(data,{rejectWithValue})=>{
+    "data/dataFetch",async(data,{rejectWithValue})=>{
 try {
    const response = await axios.get(`${api}`) 
   return response.data
@@ -17,41 +17,40 @@ try {
     }
 )
 const initialState = {
-  user:[],
+  loading: false,
+  user: [],
+  error:'',
   status: "",
-  isLoading: false,
-  error: false,
 };
 
 const dataSlice = createSlice({
-    name:"dataSlice",
+    name:"data",
     initialState,
     reducers:{},
     extraReducers:(builder)=>{
         builder.addCase(dataFetch.pending, (state, action) => {
             return {
               ...state,
-              status: "Pending",
-              isLoading: true,
-              error: false,
+              loading: true,
             };
           })
           builder.addCase(dataFetch.fulfilled, (state,action) => {
            
-            return { 
-                ...state,
-                 status:'Success',
-                 user:action.payload,
-                isLoading:false,
-                error: false,
-             };
+            return {
+              ...state,
+              loading: false,
+              user: action.payload,
+              error: '',
+              status: "Success",
+            };
           })
           builder.addCase(dataFetch.rejected,(state,action)=>{
             return {
               ...state,
-              status: "Rejected",
-              isLoading: false,
+              loading: false,
+              user: [],
               error: action.payload,
+              status: "Rejected",
             };
           })
     }

@@ -30,6 +30,7 @@ const handleSubmit = ()=>{
           placeholder="First Name"
           onChange={(e) => setUser({ ...user, firstName: e.target.value })}
           required
+     
           className="h-[5%] w-[70%] rounded pl-4 outline-none border  focus:border-red-200"
         />
         <input

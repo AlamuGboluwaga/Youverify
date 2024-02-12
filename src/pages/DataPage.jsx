@@ -2,34 +2,34 @@ import React, { useState ,useEffect} from 'react'
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { dataFetch } from '../slice/dataPageSilce';
+
 import CircularProgress from "@mui/material/CircularProgress";
 const api = import.meta.env.VITE_API;
 
 const DataPage = () => {
-const [data, setdata] = useState([])
 const disptch = useDispatch();
-const dataState = useSelector(state=>state.dataFetchState)
+const userData= useSelector(state=>state.data)
+const handleSubmit =()=>{
 
-  localStorage.setItem("dataState", dataState);
+}
 
+  localStorage.setItem("dataState",JSON.stringify(userData.user));
 
-console.log(dataState);
+console.log(userData);
 
 useEffect(()=>{
 disptch(dataFetch())
 },[])
-
-
   return (
     <div className='className="bg-green-30 h-screen w-screen p-4 flex flex-col gap-10'>
       <h1 className="text-center">Data Page</h1>
 
-      {dataState.isLoading ===true? <h1 className='text-center'>Loading...</h1>:dataState.user.length === 0 ? (
+      {userData.loading ===true? <h1 className='text-center'>Loading...</h1>:userData.user.length === 0 ? (
         <p className="text-center">Data is Empty!</p>
       ) : (
         <>
-          {data?.map((item, index) => (
-            <div key={index} className="flex flex-col gap-4">
+          {userData.user?.map((item, index) => (
+            <form onSubmit={handleSubmit} key={index} className="flex flex-col gap-4">
               <p> Id : {item.id}</p>
               <label className="flex fex-col gap-2 ">
                 Name :
@@ -94,7 +94,8 @@ disptch(dataFetch())
                   disabled
                 />
               </label>
-            </div>
+              <button className='bg-green-400 rounded text-white p-2 border-none'>Submit</button>
+            </form>
           ))}
         </>
       )} 
